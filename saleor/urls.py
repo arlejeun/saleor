@@ -35,6 +35,8 @@ non_translatable_urlpatterns = [
 
 translatable_urlpatterns = [
     url(r'^', include(core_urls)),
+    url(r'^commercial/', include(core_urls)),
+    url(r'^residential/', include(core_urls)),
     url(r'^cart/', include((cart_urls, 'cart'), namespace='cart')),
     url(r'^checkout/',
         include((checkout_urls, 'checkout'), namespace='checkout')),
