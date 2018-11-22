@@ -718,6 +718,27 @@
      
       <!-- ========== END MAIN CONTENT ========== -->
       {% endblock %}
+
+      {% block footer_scripts %}
+       
+        {{ block.super }}
+
+        <!-- JS Plugins Init. -->
+          <script>
+         
+          $(document).on('ready', function () {
+          
+           $.HSCore.components.HSValidation.init('.js-validate');
+           
+            // initialization of step form
+            $.HSCore.components.HSStepForm.init('.js-step-form')
+            // initialization of forms
+            $.HSCore.components.HSRangeSlider.init('.js-range-slider');
+    
+        });
+      </script>
+
+      {% endblock footer_scripts %}
     
                 
     
