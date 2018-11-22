@@ -1,1016 +1,724 @@
-<!DOCTYPE html>
+{% extends "landing.html" %}
 {% load i18n %}
-{% load menu from shop %}
-{% load placeholder %}
-{% load render_bundle from webpack_loader %}
 {% load static %}
+{% load render_bundle from webpack_loader %}
 {% load translate_url from urls %}
 
-<html lang="{{ LANGUAGE_CODE }}" class="no-js" data-shipping-options-url="{% url 'cart:shipping-options' %}" data-cart-summary-url="{% url 'cart:summary' %}">
-<head>
-  <title>{% block title %}{{ site.name }}{% endblock %}</title>
-  {% block meta %}
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-  <meta name="generator" content="G-Sol">
-  <meta name="theme-color" content="#333333">
-  <meta name="msapplication-TileColor" content="#2b5797">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="{{ site.name }}">
-  <meta name="og:type" content="website">
-  {% get_available_languages as LANGUAGES %}
-  {% for lang_code, language_name in LANGUAGES %}
-    <link rel="alternate" hreflang="{{ lang_code }}" href="{% translate_url url=request.path lang_code=lang_code %}" />
-  {% endfor %}
-{% endblock meta %}
 
-{% include 'favicon.html' %}
-
-{% render_bundle 'storefront' 'css' attrs='async' %}
-
-  {% block stylesheet %}
-  
-    <!-- CSS Implementing Plugins -->
-    <!-- CSS Implementing Plugins -->
-    <link rel="stylesheet" href="{% static "assets/landing/vendor/font-awesome/css/fontawesome-all.min.css" %}">
-    <link rel="stylesheet" href="{% static "assets/landing/vendor/animate.css/animate.min.css" %}">
-    <link rel="stylesheet" href="{% static "assets/landing/vendor/hs-megamenu/src/hs.megamenu.css" %}">
-
-    <link rel="stylesheet" href="{% static "assets/landing/vendor/fancybox/jquery.fancybox.css" %}">
-    <link rel="stylesheet" href="{% static "assets/landing/vendor/slick-carousel/slick/slick.css" %}">
-    <link rel="stylesheet" href="{% static "assets/landing/vendor/ion-rangeslider/css/ion.rangeSlider.css" %}">
-
-    <link rel="stylesheet" href="{% static "assets/landing/css/theme.min.css" %}">
-    <link rel="stylesheet" href="{% static "assets/landing/css/visual_form.css" %}">
-
-  
-  {% endblock stylesheet %}
-
-  {% block meta_tags %}
-    <meta property="og:title" content="{{ site.settings.translated.header_text }}">
-    <meta property="og:description" content="{{ site.settings.translated.description }}">
-    <meta name="description" content="{{ site.settings.translated.description }}">
-    <meta property="og:url" content="{{ request.build_absolute_uri }}">
-    <meta property="og:image" content="{% static "images/block1.png" %}">
-  {% endblock meta_tags %}
-
-  <link rel="manifest" href="{% url "manifest" %}" />
-
-  <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-  <!--[if lt IE 9]>
-    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-</head>
-
-<body>
-
-        <header id="header" class="u-header u-header--abs-top-md u-header--bg-transparent u-header--show-hide-md"
-          data-header-fix-moment="500"
-          data-header-fix-effect="slide">
-    <!-- Search -->
-            <!-- End Search -->
-
-            <div class="u-header__section">
-            <!-- Topbar -->
-            <!--<div class="container u-header__hide-content pt-2">
-                <div class="d-flex align-items-center">-->
-                <!-- Language -->
-        
-            <!-- End Topbar -->
-
-            <div id="logoAndNav" class="container">
-                <!-- Nav -->
-                <nav class="js-mega-menu navbar navbar-expand-md u-header__navbar u-header__navbar--no-space">
-                <!-- Logo -->
-                <a class="navbar-brand u-header__navbar-brand u-header__navbar-brand-center" href="index.html" aria-label="Front">
-                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="46px" height="46px" viewBox="0 0 46 46" xml:space="preserve" style="margin-bottom: 0;">
-                    <path fill="#3F7DE0" opacity=".65" d="M23,41L23,41c-9.9,0-18-8-18-18v0c0-9.9,8-18,18-18h11.3C38,5,41,8,41,11.7V23C41,32.9,32.9,41,23,41z"/>
-                    <path class="fill-info" opacity=".5" d="M28,35.9L28,35.9c-9.9,0-18-8-18-18v0c0-9.9,8-18,18-18l11.3,0C43,0,46,3,46,6.6V18C46,27.9,38,35.9,28,35.9z"/>
-                    <path class="fill-primary" opacity=".7" d="M18,46L18,46C8,46,0,38,0,28v0c0-9.9,8-18,18-18h11.3c3.7,0,6.6,3,6.6,6.6V28C35.9,38,27.9,46,18,46z"/>
-                    <path class="fill-white" d="M17.4,34V18.3h10.2v2.9h-6.4v3.4"/>
-                    </svg>
-                    <span class="u-header__navbar-brand-text">G-Sol</span>
-                </a>
-                <!-- End Logo -->
-
-                <!-- Responsive Toggle Button -->
-                <button type="button" class="navbar-toggler btn u-hamburger"
-                        aria-label="Toggle navigation"
-                        aria-expanded="false"
-                        aria-controls="navBar"
-                        data-toggle="collapse"
-                        data-target="#navBar">
-                    <span id="hamburgerTrigger" class="u-hamburger__box">
-                    <span class="u-hamburger__inner"></span>
-                    </span>
-                </button>
-                <!-- End Responsive Toggle Button -->
-
-                <!-- Navigation -->
-                <div id="navBar" class="collapse navbar-collapse u-header__navbar-collapse">
-                    <ul class="navbar-nav u-header__navbar-nav">
-                    
-                    <!-- Residential -->
-                    <li class="nav-item u-header__nav-item">
-                        <a id="residentialMenu" class="nav-link u-header__nav-link" href="/en/residential/">Residential</a>
-                    </li>
-                    <!-- End Residential -->
-
-                    <!-- Commercial -->
-                    <li class="nav-item u-header__nav-item">
-                        <a id="commercialMenu" class="nav-link u-header__nav-link" href="/en/commercial/">Commercial</a>
-                    </li>
-                    <!-- End Commercial -->
-
-                    <!-- Shop -->
-                    <li class="nav-item u-header__nav-item">
-                        <a id="gotoShoplMenu" class="nav-link u-header__nav-link" href="/en/shop/">Utilities</a>
-                    </li>
-                    <!-- End Shop -->
-                    </ul>
-                </div>
-                <!-- End Navigation -->
-                </nav>
-                <!-- End Nav -->
-            </div>
-
-            </div>
-        </header>
-
-        <main id="content" role="main">
+{% block content %}
                 
-          <div id="SVGheroSectionBg" class="svg-preloader position-relative gradient-half-primary-v3">
-            <div class="container space-2 space-top-md-5 space-top-lg-4">
-              <div class="row align-items-lg-center">
-                <div class="col-lg-5 mb-7 mb-lg-0">
-                  <!-- Info -->
-                  <h1 class="mb-4">We create the best <span class="text-primary font-weight-semi-bold">solution</span> for you.</h1>
-                  <p>Front is an easy-to-use template that is loaded with all the features you will ever need.</p>
-                  <!-- End Info -->
-                </div>
-      
-                <div class="col-lg-7">
-                  <!-- SVG Icon -->
-                  <figure class="ie-we-have-an-idea">
-                    <img class="js-svg-injector" src="{% static "assets/landing/svg/illustrations/we-have-an-idea.svg" %}" alt="Image Description"
-                         data-parent="#SVGheroSectionBg">
-                  </figure>
-                  <!-- End SVG Icon -->
-                </div>
+        <div id="SVGheroSectionBg" class="svg-preloader position-relative gradient-half-primary-v3">
+          <div class="container space-2 space-top-md-5 space-top-lg-4">
+            <div class="row align-items-lg-center">
+              <div class="col-lg-5 mb-7 mb-lg-0">
+                <!-- Info -->
+                <h1 class="mb-4">We create the best <span class="text-primary font-weight-semi-bold">solution</span> for you.</h1>
+                <p>Front is an easy-to-use template that is loaded with all the features you will ever need.</p>
+                <!-- End Info -->
+              </div>
+    
+              <div class="col-lg-7">
+                <!-- SVG Icon -->
+                <figure class="ie-we-have-an-idea">
+                  <img class="js-svg-injector" src="{% static "assets/landing/svg/illustrations/we-have-an-idea.svg" %}" alt="Image Description"
+                        data-parent="#SVGheroSectionBg">
+                </figure>
+                <!-- End SVG Icon -->
               </div>
             </div>
-      
-            <!-- SVG Background -->
-            <figure class="position-absolute right-0 bottom-0 left-0">
-              <img class="js-svg-injector" src="{% static "assets/landing/svg/components/wave-1-bottom-sm.svg" %}" alt="Image Description"
-                   data-parent="#SVGheroSectionBg">
+          </div>
+    
+          <!-- SVG Background -->
+          <figure class="position-absolute right-0 bottom-0 left-0">
+            <img class="js-svg-injector" src="{% static "assets/landing/svg/components/wave-1-bottom-sm.svg" %}" alt="Image Description"
+                  data-parent="#SVGheroSectionBg">
+          </figure>
+          <!-- End SVG Background Section -->
+        </div>
+        <!-- End Hero Section -->
+            
+        <!-- How It Works Section -->
+        <div class="container space-2 mb-0">
+          <!-- Title -->
+          <div class="w-md-80 w-lg-50 text-center mx-md-auto mb-9">
+            <figure id="icon14" class="svg-preloader ie-height-72 max-width-10 mx-auto mb-3">
+              <img class="js-svg-injector" src="{% static "assets/landing/svg/icons/icon-14.svg" %}" alt="SVG"
+                    data-parent="#icon14">
             </figure>
-            <!-- End SVG Background Section -->
+            <h2 class="font-weight-medium">Front House aims to improve everyone's experience of selling or buying a home with these 3 steps:</h2>
           </div>
-          <!-- End Hero Section -->
-
-            
-                <!-- How It Works Section -->
-                <div class="container space-2 mb-0">
-                  <!-- Title -->
-                  <div class="w-md-80 w-lg-50 text-center mx-md-auto mb-9">
-                    <figure id="icon14" class="svg-preloader ie-height-72 max-width-10 mx-auto mb-3">
-                      <img class="js-svg-injector" src="{% static "assets/landing/svg/icons/icon-14.svg" %}" alt="SVG"
-                           data-parent="#icon14">
-                    </figure>
-                    <h2 class="font-weight-medium">Front House aims to improve everyone's experience of selling or buying a home with these 3 steps:</h2>
-                  </div>
-                  <!-- End Title -->
-            
-                  <div class="row align-items-lg-center">
-                    <div class="col-lg-6 order-lg-2 mb-7 mb-lg-0">
-                      <ul class="list-unstyled">
-                        <!-- Info Block -->
-                        <li class="u-indicator-steps py-3">
-                          <div class="media align-items-center border rounded p-5">
-                            <div class="d-flex u-indicator-steps__inner mr-3">
-                              <span class="display-4 text-primary font-weight-medium">1.</span>
-                            </div>
-                            <div class="media-body">
-                              <p class="mb-0">Describe your home online and get appraisal in 3 minutes</p>
-                            </div>
-                          </div>
-                        </li>
-                        <!-- End Info Block -->
-            
-                        <!-- Info Block -->
-                        <li class="u-indicator-steps py-3">
-                          <div class="media align-items-center border rounded p-5">
-                            <div class="d-flex u-indicator-steps__inner mr-3">
-                              <span class="display-4 text-primary font-weight-medium">2.</span>
-                            </div>
-                            <div class="media-body">
-                              <p class="mb-0">We match you with the best agent to refine the appraisal and discuss your project</p>
-                            </div>
-                          </div>
-                        </li>
-                        <!-- End Info Block -->
-            
-                        <!-- Info Block -->
-                        <li class="u-indicator-steps py-3">
-                          <div class="media align-items-center border rounded p-5">
-                            <div class="d-flex u-indicator-steps__inner mr-3">
-                              <span class="display-4 text-primary font-weight-medium">3.</span>
-                            </div>
-                            <div class="media-body">
-                              <p class="mb-0">If you decide you are ready to sell, we'll make you an offer</p>
-                            </div>
-                          </div>
-                        </li>
-                        <!-- End Info Block -->
-                      </ul>
-                    </div>
-            
-                    <div id="SVGhouseAgency" class="col-lg-6 order-lg-1 svg-preloader">
-                      <div class="pr-lg-7">
-                        <!-- SVG Icon -->
-                        <figure class="ie-house-agency">
-                          <img class="js-svg-injector" src="{% static "assets/landing/svg/illustrations/house-agency.svg" %}" alt="Image Description"
-                               data-parent="#SVGhouseAgency">
-                        </figure>
-                        <!-- End SVG Icon -->
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- End How It Works Section -->
-
-                
-                <!-- Begin Calculator Form -->
-                <div class="container space-2 mt-0 mb-5">
-                <!-- Step Form -->
-                  <form class="js-validate js-step-form"
-                    data-progress-id="#progressStepForm"
-                    data-steps-id="#contentStepForm"
-                    novalidate="novalidate">
-                  <div class="card">
-                  <div class="card-header p-5">
-                  <nav id="progressStepForm" class="js-step-progress nav nav-icon nav-justified text-center">
-                    <a href="javascript:;" class="nav-item">
-                      <span class="nav-icon-action">
-                        <span class="fas fa-user-circle nav-icon-action-inner"></span>
-                      </span>
-                      Contact Information
-                    </a>
-                    <a href="javascript:;" class="nav-item">
-                      <span class="nav-icon-action">
-                        <span class="fas fa-building nav-icon-action-inner"></span>
-                      </span>
-                      House Information
-                    </a>
-                    <a href="javascript:;" class="nav-item">
-                      <span class="nav-icon-action">
-                        <span class="fas fa-file-invoice-dollar nav-icon-action-inner"></span>
-                      </span>
-                      Savings Estimate
-                    </a>
-                  </nav>
-                  </div>
-
-                  <!-- Content Step Form -->
-                  <div id="contentStepForm" class="card-body p-5">
-                  <div id="selectStepOne" class="active">
-                    
-                    <!-- Content Step One -->
-
-                    <div  class="container">
-                      
-                        <div class="row">
-                          <div class="col-md-6 mb-4 mt-3">
-                            <p class="font-size-2 ">Contact Information</p>
-                          </div>
-                        </div>
-                      
-                        <div class="row">    
-                            <div class="col-md-6 mb-2">
-                                <div class="input-group-pill mb-2">
-                                  <input type="text" class="form-control" placeholder="First Name" aria-label="First Name">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-2">
-                                <div class="input-group-pill mb-2">
-                                  <input type="text" class="form-control" placeholder="Last Name" aria-label="Last Name">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-
-                            <div class="js-form-message js-focus-state col-md-6 mb-2">
-                                <div class="input-group-pill mb-4">
-                                    <input type="email" class="form-control" placeholder="Email" aria-label="Email" required
-                                    data-msg="Please enter an email."
-                                    data-error-class="u-has-error"
-                                    data-success-class="u-has-success">
-                                  </div>
-                            </div>
-                            <div class="col-md-6 mb-2">
-                                <div class="input-group-pill mb-4">
-                                  <input type="text" class="form-control" placeholder="Phone" aria-label="Phone" required>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="row">
-
-                           <!-- Select -->
-                            <div class="col-sm-6 mb-4 js-form-message js-focus-state">
-                                <p class="font-size-2 ">Are you Homeowner?</p>
-              
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="customRadioInline1" name="homeownerradio" class="custom-control-input" required
-                                          data-msg="Please answer the question."
-                                          data-error-class="u-has-error"
-                                          data-success-class="u-has-success">
-                                    <label class="custom-control-label" for="customRadioInline1">Yes</label>
-                                  </div>
-                                  <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="customRadioInline2" name="homeownerradio" class="custom-control-input">
-                                    <label class="custom-control-label" for="customRadioInline2">No</label>
-                                  </div>
-
-                            </div>
-                              <!-- End Select -->
-
-                        </div>
-
-                    </div>
-
-                    <!-- End of Content Step One -->
-
-                    <div class="d-flex justify-content-end">
-                      <button type="button" type="submit" class="btn btn-sm btn-primary transition-3d-hover mr-1" data-next-step="#selectStepTwo">Next</button>
-                    </div>
-                  </div>
-
-
-                  <div id="selectStepTwo" style="display: none;">
-                    
-                    <!-- Beginning of content step 2 -->
-
-                      <div  class="container">
+          <!-- End Title -->
     
-                          <div class="row">
-                            <div class="col-md-6 mb-4 mt-4">
-                              <p class="font-size-2 ">House Information</p>
-                            </div>
-                          </div>
-                        
-                          <div class="row">
-  
-                              <div class="col-md-6 mb-2">
-                                  <div class="js-form-message js-focus-state input-group-pill mb-4">
-                                      <input type="email" class="form-control" placeholder="Email" aria-label="Email" required
-                                          data-msg="Please enter an email."
-                                          data-error-class="u-has-error"
-                                          data-success-class="u-has-success">
-
-                                  </div>
-                              </div>
-                              <div class="col-md-6 mb-2">
-                                  <div class="input-group-pill mb-4">
-                                    <input type="text" class="form-control" placeholder="Phone" aria-label="Phone">
-                                  </div>
-                              </div>
-  
-                          </div>
-  
-                          <div class="row">
-  
-                              <div class="col-md-6 mb-2">
-                                  <div class="input-group-pill mb-4">
-                                      <input type="text" class="form-control" placeholder="Address" aria-label="Address">
-                                    </div>
-                              </div>
-  
-                              <div class="col-md-2 mb-2">
-                                  <div class="js-form-message js-focus-state input-group-pill mb-4">
-                                    <input type="text" class="form-control" placeholder="Zip Code" aria-label="Zip Code" required
-                                        data-msg="Please enter a valid zip code."
-                                        data-error-class="u-has-error"
-                                         data-success-class="u-has-success">
-                                  </div>
-                              </div>
-  
-                              <div class="col-md-4 mb-2">
-                                  <div class="js-form-message js-focus-state input-group-pill mb-4">
-                                    <input type="text" class="form-control" placeholder="City" aria-label="City" required>
-                                  </div>
-                              </div>
-  
-                          </div>
-  
-                      </div>
-
-                      <!-- End of content step 2 -->
-
-
-                    <div class="d-flex justify-content-end">
-                      <a class="btn btn-sm btn-soft-secondary transition-3d-hover mr-1" href="javascript:;" data-previous-step="#selectStepOne">Back</a>
-                      <button type="button" class="btn btn-sm btn-primary transition-3d-hover" data-next-step="#selectStepThree">Next</button>
+          <div class="row align-items-lg-center">
+            <div class="col-lg-6 order-lg-2 mb-7 mb-lg-0">
+              <ul class="list-unstyled">
+                <!-- Info Block -->
+                <li class="u-indicator-steps py-3">
+                  <div class="media align-items-center border rounded p-5">
+                    <div class="d-flex u-indicator-steps__inner mr-3">
+                      <span class="display-4 text-primary font-weight-medium">1.</span>
+                    </div>
+                    <div class="media-body">
+                      <p class="mb-0">Describe your home online and get appraisal in 3 minutes</p>
                     </div>
                   </div>
-
-                  <div id="selectStepThree" style="display: none;">
-
-                    <!-- Begin Content Step 3 -->
-
-                        <!-- Begin Saving Estimator-->
-
-                        <div class="container space-2 mb-5 calculator">
-
-                            <div class="row text-center m-4">
-                                <h2>Your Solar Roof can generate <span class="text-primary">$167</span> of energy per month over 30 years</h2>
-                            </div>
-
-                            <div class="row">
-
-                                <div class="col-md-4">
-                                  <div class="btn-group btn-group-toggle mb-8">
-                                      <a class="js-animation-link btn btn-sm btn-outline-secondary btn-sm-wide active" href="javascript:;"
-                                        data-target="#finance-simulation"
-                                        data-link-group="groups"
-                                        data-animation-in="slideInUp">
-                                      Finance</a>
-                                      <a class="js-animation-link btn btn-sm btn-outline-secondary btn-sm-wide" href="javascript:;"
-                                        data-target="#cash-simulation"
-                                        data-link-group="groups"
-                                        data-animation-in="slideInUp">
-                                        Cash</a>
-                                  </div>
-                                  
-                                  <div class="row" style="text-align: center">
-
-                                      <div id="finance-simulation" data-target-group="groups">
-                                            
-                                          <!-- Begin Content Finance Simulation -->
-                                              <div class="row">
-                                                  <div class="col-md-5">
-                                                    <ul class="list-inline text-center" style="margin-bottom:0px">
-                                                        <li class="list-inline-item">
-                                                          <span class="d-block">
-                                                            <span class="display-4 text-primary font-weight-normal">
-                                                              <span class="align-top font-size-2">$</span>228
-                                                            </span>
-                                                            <span class="d-block text-primary font-size-1">per month</span>
-                                                          </span>
-                                                        </li>
-                                                    </ul>
-                                                  </div>
-              
-                                                  <div class="col-md-6 mb-5 my-padding-form">
-                                                      <span class="font-size-1">Average value of energy over 30 years
-                                                      </span>
-                                                  </div>
-                                              </div>
-
-                                              <div class="row">
-                                                <div class="col-md-5 mt-2">
-                                                      <ul class="list-inline text-center" style="margin-bottom:0px">
-                                                          <li class="list-inline-item">
-                                                            <span class="d-block">
-                                                              <span class="display-4 font-weight-normal">
-                                                                <span class="align-top font-size-2">$</span>-394
-                                                              </span>
-                                                              <span class="d-block font-size-1">per month</span>
-                                                            </span>
-                                                          </li>
-                                                      </ul>
-                                                  </div>
-                  
-                                                  <div class="col-md-6 mb-5 my-padding-form">
-                                                      <span class="font-size-1">Loan payment after tax credit and deductions
-                                                      </span>
-                                                      
-                                                  </div>
-                                          
-                                              </div>
-
-                                              <div class="row">
-                                                  <div class="col-md-5 mt-2">
-                                                      <ul class="list-inline text-center" style="margin-bottom:0px">
-                                                          <li class="list-inline-item">
-                                                            <span class="d-block">
-                                                              <span class="display-4 font-weight-normal">
-                                                                <span class="align-top font-size-2">$</span>166
-                                                              </span>
-                                                              <span class="d-block font-size-1">per month</span>
-                                                            </span>
-                                                          </li>
-                                                      </ul>
-                                                  </div>
-                  
-                                                  <div class="col-md-6 mb-5 my-padding-form">
-                                                      <span class="font-size-1">Net cost over 30-year loan
-                                                      </span>
-                                                      
-                                                  </div>
-                                          
-                                              </div>
-                                      </div>
-
-              
-                                      <!-- End Content Finance Simulation -->
-                                      
-                                        <div id="cash-simulation" data-target-group="groups" style="display: none; opacity: 0;">
-                                          
-                                          <!-- Begin Content Cash Simulation -->
-                                          
-
-                                          <dl class="row">
-                                              <dt class="col-sm-4"> 
-                                                <span style="font-size: 24px;font-weight:500;">
-                                                  <span class="align-top"> $</span>60,000
-                                                </span>
-                                              </dt>
-                                              <dd class="col-sm-8"><span class="font-size-1">Value of energy</span></dd>
-                                            
-                                              <dt class="col-sm-4">
-                                                <span style="font-size: 24px;font-weight:500;">
-                                                  <span class="align-top">-$</span>94,200
-                                                </span>
-                                              </dt>
-                                              <dd class="col-sm-8"><span class="font-size-1">Cost of installation</span></dd>
-
-                                              <dt class="col-sm-4">
-                                                  <span style="font-size: 24px;font-weight:500;">
-                                                    <span class="align-top"> $</span>16,200
-                                                  </span>
-                                                </dt>
-                                                <dd class="col-sm-8"><span class="font-size-1">Tax Credit</span></dd>
-
-                                              </dl>
-
-                                              <div class="text-center">
-                                                  <span class="u-divider u-divider--xs u-divider--text">Total</span>
-                                              </div>
-
-
-                                              <div class="col-md-5 mt-2">
-                                                  <ul class="list-inline text-center" style="margin-bottom:0px">
-                                                      <li class="list-inline-item">
-                                                        <span class="d-block">
-                                                          <span class="display-4 font-weight-normal">-$18,100
-                                                          </span>
-                                                          <span class="d-block font-size-1">Net cost over 30 year</span>
-                                                        </span>
-                                                      </li>
-                                                  </ul>
-                                              </div>
-
-                                              
-                                          <!-- End Content Cash Simulation -->
-              
-                                      </div>
-
-                                    </div>
-              
-                                </div>
-
-                                <div class="col-md-8">
-
-                                    <div class="row m-3">
-
-                                        <div class="mb-6">
-                                            <h4>Customize your Solar Roof</h4>
-                                        </div>
-                                        
-                                        <dl class="row mb-6">
-                                            <dt class="col-sm-4">Recommendations</dt>
-                                            <dd class="col-sm-8">
-                                              40% solar coverage to meet your home’s energy needs. Solar and non-solar tiles appear the same from street level.
-                                            </dd>
-                                          
-                                            <dt class="col-sm-4">% Solar Coverage</dt>
-                                            <dd class="col-sm-8">
-                                              <!-- Range Slider -->
-                                                <input class="js-range-slider" type="text"
-                                                data-extra-classes="u-range-slider u-range-slider-indicator u-range-slider-grid"
-                                                data-type="single"
-                                                data-grid="false"
-                                                data-hide-from-to="false"
-                                                data-min="0"
-                                                data-max="70"
-                                                data-step="10"
-                                                value="40"
-                                                data-result-min>
-                                                <!-- End Range Slider -->
-                                            </dd>
-                                          
-                                            <dt class="col-sm-4 text-truncate">Constraints</dt>
-                                            <dd class="col-sm-8">We cannot install solar tiles on some areas of your roof due to building regulations and obstructions like skylights and chimneys.</dd>
-                                          
-                                            
-                                          </dl>
-              
-                                        </div>
-
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- End Saving Estimator-->
-                   
-
-                    <!-- End of Content Step 3 -->
-
-                    <div class="d-flex justify-content-end">
-                      <a class="btn btn-sm btn-soft-secondary transition-3d-hover mr-1" href="javascript:;" data-previous-step="#selectStepTwo">Back</a>
-                      <button type="button" type="submit" class="btn btn-sm btn-primary transition-3d-hover">Done</button>
+                </li>
+                <!-- End Info Block -->
+    
+                <!-- Info Block -->
+                <li class="u-indicator-steps py-3">
+                  <div class="media align-items-center border rounded p-5">
+                    <div class="d-flex u-indicator-steps__inner mr-3">
+                      <span class="display-4 text-primary font-weight-medium">2.</span>
+                    </div>
+                    <div class="media-body">
+                      <p class="mb-0">We match you with the best agent to refine the appraisal and discuss your project</p>
                     </div>
                   </div>
-                  </div>
-                  <!-- End Content Step Form -->
-                  </div>
-                  </form>
-                </div>
-                <!-- End Calculator Form -->
-      
-                
-
-                <!-- Houses Section -->
-                <div class="bg-light">
-                  <div class="container space-2 space-md-3">
-                    <!-- Title -->
-                    <div class="w-md-80 w-lg-50 text-center mx-md-auto mb-9">
-                      <figure id="icon13" class="svg-preloader ie-height-72 max-width-10 mx-auto mb-3">
-                        <img class="js-svg-injector" src="{% static "assets/landing/svg/icons/icon-13.svg" %}" alt="SVG"
-                             data-parent="#icon13">
-                      </figure>
-                      <h2 class="font-weight-medium">Find your new home for sale on Front's largest selection of property</h2>
+                </li>
+                <!-- End Info Block -->
+    
+                <!-- Info Block -->
+                <li class="u-indicator-steps py-3">
+                  <div class="media align-items-center border rounded p-5">
+                    <div class="d-flex u-indicator-steps__inner mr-3">
+                      <span class="display-4 text-primary font-weight-medium">3.</span>
                     </div>
-                    <!-- End Title -->
-            
-                    <!-- Slick Carousel -->
-                    <div class="js-slick-carousel u-slick u-slick-zoom u-slick--gutters-3 mb-7"
-                         data-slides-show="3"
-                         data-pagi-classes="text-center u-slick__pagination mt-7 mb-0"
-                         data-responsive='[{
-                           "breakpoint": 992,
-                           "settings": {
-                             "slidesToShow": 2
-                           }
-                         }, {
-                           "breakpoint": 768,
-                           "settings": {
-                             "slidesToShow": 1
-                           }
-                         }]'>
-                      <div class="js-slide card border-0 shadow-sm mb-3">
-                        <!-- House Items -->
-                        <div class="position-relative">
-                          <img class="card-img-top" src="{% static "assets/landing/img/500x550/img14.jpg" %}" alt="Image Description">
-                          <header class="position-absolute top-0 right-0 left-0 p-5">
-                            <a class="media align-items-center text-white" href="#">
-                              <div class="u-avatar mr-2">
-                                <img class="img-fluid rounded-circle" src="{% static "assets/landing/img/100x100/img1.jpg" %}" alt="Image Description">
-                              </div>
-                              <div class="media-body">
-                                <span>Maria Muszynska</span>
-                              </div>
-                            </a>
-                          </header>
-                          <div class="position-absolute right-0 bottom-0 left-0 p-5">
-                            <span class="h4 text-white">$455,000</span>
-                          </div>
-                        </div>
-            
-                        <div class="card-body p-5">
-                          <h4 class="h6">
-                            <a href="#">Abbots Way, North Shields</a>
-                          </h4>
-                          <span class="fas fa-map-marker-alt text-danger mr-2"></span>
-                          <a class="text-secondary" href="#">London, England</a>
-                        </div>
-                        <!-- End House Items -->
-                      </div>
-            
-                      <div class="js-slide card border-0 shadow-sm mb-3">
-                        <!-- House Items -->
-                        <div class="position-relative">
-                          <img class="card-img-top" src="{% static "assets/landing/img/500x550/img15.jpg" %}" alt="Image Description">
-                          <header class="position-absolute top-0 right-0 left-0 p-5">
-                            <a class="media align-items-center text-white" href="#">
-                              <div class="u-avatar mr-2">
-                                <img class="img-fluid rounded-circle" src="{% static "assets/landing/img/100x100/img2.jpg" %}" alt="Image Description">
-                              </div>
-                              <div class="media-body">
-                                <span>Casy Williams</span>
-                              </div>
-                            </a>
-                          </header>
-                          <div class="position-absolute right-0 bottom-0 left-0 p-5">
-                            <span class="h4 text-white">$750,000</span>
-                          </div>
-                        </div>
-            
-                        <div class="card-body p-5">
-                          <h4 class="h6">
-                            <a href="#">Secluded Intown Treehouse</a>
-                          </h4>
-                          <span class="fas fa-map-marker-alt text-danger mr-2"></span>
-                          <a class="text-secondary" href="#">New York, US</a>
-                        </div>
-                        <!-- End House Items -->
-                      </div>
-            
-                      <div class="js-slide card border-0 shadow-sm mb-3">
-                        <!-- House Items -->
-                        <div class="position-relative">
-                          <img class="card-img-top" src="{% static "assets/landing/img/500x550/img16.jpg" %}" alt="Image Description">
-                          <header class="position-absolute top-0 right-0 left-0 p-5">
-                            <a class="media align-items-center text-white" href="#">
-                              <div class="u-avatar mr-2">
-                                <img class="img-fluid rounded-circle" src="{% static "assets/landing/img/100x100/img3.jpg" %}" alt="Image Description">
-                              </div>
-                              <div class="media-body">
-                                <span>Chris Johnson</span>
-                              </div>
-                            </a>
-                          </header>
-                          <div class="position-absolute right-0 bottom-0 left-0 p-5">
-                            <span class="h4 text-white">$173,000</span>
-                          </div>
-                        </div>
-            
-                        <div class="card-body p-5">
-                          <h4 class="h6">
-                            <a href="#">Malibu Dream Airstream</a>
-                          </h4>
-                          <span class="fas fa-map-marker-alt text-danger mr-2"></span>
-                          <a class="text-secondary" href="#">Manhattan, US</a>
-                        </div>
-                        <!-- End House Items -->
-                      </div>
-            
-                      <div class="js-slide card border-0 shadow-sm mb-3">
-                        <!-- House Items -->
-                        <div class="position-relative">
-                          <img class="card-img-top" src="{% static "assets/landing/img/500x550/img17.jpg" %}" alt="Image Description">
-                          <header class="position-absolute top-0 right-0 left-0 p-5">
-                            <a class="media align-items-center text-white" href="#">
-                              <div class="u-avatar mr-2">
-                                <img class="img-fluid rounded-circle" src="{% static "assets/landing/img/100x100/img4.jpg" %}" alt="Image Description">
-                              </div>
-                              <div class="media-body">
-                                <span>Elon Fisher</span>
-                              </div>
-                            </a>
-                          </header>
-                          <div class="position-absolute right-0 bottom-0 left-0 p-5">
-                            <span class="h4 text-white">$199,000</span>
-                          </div>
-                        </div>
-            
-                        <div class="card-body p-5">
-                          <h4 class="h6">
-                            <a href="#">Tintern Crescent</a>
-                          </h4>
-                          <span class="fas fa-map-marker-alt text-danger mr-2"></span>
-                          <a class="text-secondary" href="#">Toronto, Canada</a>
-                        </div>
-                        <!-- End House Items -->
-                      </div>
-            
-                      <div class="js-slide card border-0 shadow-sm mb-3">
-                        <!-- House Items -->
-                        <div class="position-relative">
-                          <img class="card-img-top" src="{% static "assets/landing/img/500x550/img18.jpg" %}" alt="Image Description">
-                          <header class="position-absolute top-0 right-0 left-0 p-5">
-                            <a class="media align-items-center text-white" href="#">
-                              <div class="u-avatar mr-2">
-                                <img class="img-fluid rounded-circle" src="{% static "assets/landing/img/100x100/img1.jpg" %}" alt="Image Description">
-                              </div>
-                              <div class="media-body">
-                                <span>Maria Muszynska</span>
-                              </div>
-                            </a>
-                          </header>
-                          <div class="position-absolute right-0 bottom-0 left-0 p-5">
-                            <span class="h4 text-white">$376,000</span>
-                          </div>
-                        </div>
-            
-                        <div class="card-body p-5">
-                          <h4 class="h6">
-                            <a href="#">Tiverton Avenue</a>
-                          </h4>
-                          <span class="fas fa-map-marker-alt text-danger mr-2"></span>
-                          <a class="text-secondary" href="#">Beijing, China</a>
-                        </div>
-                        <!-- End House Items -->
-                      </div>
-                    </div>
-                    <!-- End Slick Carousel -->
-            
-                    <div class="text-center">
-                      <a class="btn btn-sm btn-soft-primary btn-wide transition-3d-hover" href="#">View All Houses</a>
+                    <div class="media-body">
+                      <p class="mb-0">If you decide you are ready to sell, we'll make you an offer</p>
                     </div>
                   </div>
-                </div>
-                <!-- End Houses Section -->
-
-
-            
-                <!-- CTA -->
-                <div class="container text-center space-2 space-md-3">
-                  <!-- Title -->
-                  <div class="w-md-60 text-center mx-auto mb-6">
-                    <h2 class="font-weight-medium">Join over <span class="text-primary font-weight-semi-bold">35,000</span> happy customers selling houses online</h2>
-                  </div>
-                  <!-- End Title -->
-            
-                  <div class="mb-6">
-                    <a class="btn btn-primary btn-wide transition-3d-hover" href="#">Get Started Now</a>
-                  </div>
-            
-                  <!-- Fancybox -->
-                  <div class="d-flex justify-content-center">
-                    <a class="js-fancybox media align-items-center u-media-player" href="javascript:;"
-                       data-src="//vimeo.com/167434033"
-                       data-speed="700"
-                       data-animate-in="zoomIn"
-                       data-animate-out="zoomOut"
-                       data-caption="Front - Responsive Website Template">
-                      <span class="u-media-player__icon u-media-player__icon--primary mr-3">
-                        <span class="fas fa-play u-media-player__icon-inner"></span>
-                      </span>
-                      <span class="media-body">
-                        Watch video
-                      </span>
-                    </a>
-                  </div>
-                  <!-- End Fancybox -->
-                </div>
-                <!-- End CTA -->
-        </main>
-
-      <!-- ========== END MAIN CONTENT ========== -->
+                </li>
+                <!-- End Info Block -->
+              </ul>
+            </div>
     
-      <!-- ========== FOOTER ========== -->
-      <footer class="border-top">
-        <div class="container">
-          <div class="border-bottom">
-            <div class="row justify-content-lg-between space-2 space-top-md-3">
-              <div class="col-6 col-sm-4 col-lg-2 mb-7 mb-lg-0">
-                <h4 class="h6">Account</h4>
-    
-                <!-- List Group -->
-                <ul class="list-group list-group-flush list-group-borderless mb-0">
-                  <li><a class="list-group-item list-group-item-action" href="../account/dashboard.html">Account</a></li>
-                  <li><a class="list-group-item list-group-item-action" href="../account/my-tasks.html">My tasks</a></li>
-                  <li><a class="list-group-item list-group-item-action" href="../account/projects.html">Projects</a></li>
-                  <li><a class="list-group-item list-group-item-action" href="../account/invite-friends.html">Invite friends</a></li>
-                </ul>
-                <!-- End List Group -->
-              </div>
-    
-              <div class="col-6 col-sm-4 col-lg-2 mb-7 mb-lg-0">
-                <h4 class="h6">Company</h4>
-    
-                <!-- List Group -->
-                <ul class="list-group list-group-flush list-group-borderless mb-0">
-                  <li><a class="list-group-item list-group-item-action" href="../pages/about-agency.html">About</a></li>
-                  <li><a class="list-group-item list-group-item-action" href="../pages/services-agency.html">Services</a></li>
-                  <li><a class="list-group-item list-group-item-action" href="../pages/careers.html">Careers</a></li>
-                  <li><a class="list-group-item list-group-item-action" href="../blog/grid-right-sidebar.html">Blog</a></li>
-                </ul>
-                <!-- End List Group -->
-              </div>
-    
-              <div class="col-sm-4 col-lg-2 mb-7 mb-lg-0">
-                <h4 class="h6">Resources</h4>
-    
-                <!-- List Group -->
-                <ul class="list-group list-group-flush list-group-borderless mb-0">
-                  <li><a class="list-group-item list-group-item-action" href="../pages/contacts-agency.html">Contacts</a></li>
-                  <li><a class="list-group-item list-group-item-action" href="../pages/help.html">Help</a></li>
-                  <li><a class="list-group-item list-group-item-action" href="../pages/terms.html">Terms</a></li>
-                  <li><a class="list-group-item list-group-item-action" href="../pages/privacy.html">Privacy</a></li>
-                </ul>
-                <!-- End List Group -->
-              </div>
-    
-              <div class="col-md-7 col-lg-5">
-                <div class="mb-4">
-                  <h4 class="h6">Get latest news in your box!</h4>
-                  <p class="font-size-1">Get special offers and deals. Never spam.</p>
-                </div>
-    
-                <!-- Subscribe Form -->
-                <form class="js-validate js-form-message">
-                  <label class="sr-only" for="subscribeSrEmail">Your email address</label>
-                  <div class="input-group">
-                    <input type="email" class="form-control" name="email" id="subscribeSrEmail" placeholder="Your email address" aria-label="Your email address" aria-describedby="subscribeButton" required
-                           data-msg="Please enter a valid email address."
-                           data-error-class="u-has-error"
-                           data-success-class="u-has-success">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" type="button" id="subscribeButton">Subscribe</button>
-                    </div>
-                  </div>
-                </form>
-                <!-- End Subscribe Form -->
+            <div id="SVGhouseAgency" class="col-lg-6 order-lg-1 svg-preloader">
+              <div class="pr-lg-7">
+                <!-- SVG Icon -->
+                <figure class="ie-house-agency">
+                  <img class="js-svg-injector" src="{% static "assets/landing/svg/illustrations/house-agency.svg" %}" alt="Image Description"
+                        data-parent="#SVGhouseAgency">
+                </figure>
+                <!-- End SVG Icon -->
               </div>
             </div>
-          </div>
-    
-          <div class="text-center py-7">
-            <!-- Copyright -->
-            <p class="small text-muted mb-0">&copy; Front. 2018 Htmlstream.</p>
-            <!-- End Copyright -->
           </div>
         </div>
-      </footer>
-      <!-- ========== END FOOTER ========== -->
-    
-      <!-- Go to Top -->
-      <a class="js-go-to u-go-to" href="#"
-        data-position='{"bottom": 15, "right": 15 }'
-        data-type="fixed"
-        data-offset-top="400"
-        data-compensation="#header"
-        data-show-effect="slideInUp"
-        data-hide-effect="slideOutDown">
-        <span class="fas fa-arrow-up u-go-to__inner"></span>
-      </a>
-      <!-- End Go to Top -->
-    
-      <!-- JS Global Compulsory -->
-      <script type="text/javascript" src="{% static "assets/landing/vendor/jquery/dist/jquery.min.js" %}"></script>
-      <script type="text/javascript" src="{% static "assets/landing/vendor/jquery-migrate/dist/jquery-migrate.min.js" %}"></script>
-      <script type="text/javascript" src="{% static "assets/landing/vendor/popper.js/dist/umd/popper.min.js" %}"></script>
-      <script type="text/javascript" src="{% static "assets/landing/vendor/bootstrap/bootstrap.min.js" %}"></script>
+        <!-- End How It Works Section -->
+                
+        <!-- Begin Calculator Form -->
+        <div class="container space-2 mt-0 mb-5">
+        <!-- Step Form -->
+          <form class="js-validate js-step-form"
+            data-progress-id="#progressStepForm"
+            data-steps-id="#contentStepForm"
+            novalidate="novalidate">
+          <div class="card">
+          <div class="card-header p-5">
+          <nav id="progressStepForm" class="js-step-progress nav nav-icon nav-justified text-center">
+            <a href="javascript:;" class="nav-item">
+              <span class="nav-icon-action">
+                <span class="fas fa-user-circle nav-icon-action-inner"></span>
+              </span>
+              Contact Information
+            </a>
+            <a href="javascript:;" class="nav-item">
+              <span class="nav-icon-action">
+                <span class="fas fa-building nav-icon-action-inner"></span>
+              </span>
+              House Information
+            </a>
+            <a href="javascript:;" class="nav-item">
+              <span class="nav-icon-action">
+                <span class="fas fa-file-invoice-dollar nav-icon-action-inner"></span>
+              </span>
+              Savings Estimate
+            </a>
+          </nav>
+          </div>
 
-      <script type="text/javascript" src="{% static "assets/landing/vendor/hs-megamenu/src/hs.megamenu.js" %}"></script>
-      <script type="text/javascript" src="{% static "assets/landing/vendor/svg-injector/dist/svg-injector.min.js" %}"></script>
-      <script type="text/javascript" src="{% static "assets/landing/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js" %}"></script>
-      <script type="text/javascript" src="{% static "assets/landing/vendor/jquery-validation/dist/jquery.validate.min.js" %}"></script>
-      <script type="text/javascript" src="{% static "assets/landing/vendor/fancybox/jquery.fancybox.min.js" %}"></script>
-      <script type="text/javascript" src="{% static "assets/landing/vendor/slick-carousel/slick/slick.min.js" %}"></script>
-      <script type="text/javascript" src="{% static "assets/landing/vendor/ion-rangeslider/js/ion.rangeSlider.min.js" %}"></script>
+          <!-- Content Step Form -->
+          <div id="contentStepForm" class="card-body p-5">
+          <div id="selectStepOne" class="active">
+            
+            <!-- Content Step One -->
+
+            <div  class="container">
+              
+                <div class="row">
+                  <div class="col-md-6 mb-4 mt-3">
+                    <p class="font-size-2 ">Contact Information</p>
+                  </div>
+                </div>
+              
+                <div class="row">    
+                    <div class="col-md-6 mb-2">
+                        <div class="input-group-pill mb-2">
+                          <input type="text" class="form-control" placeholder="First Name" aria-label="First Name">
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <div class="input-group-pill mb-2">
+                          <input type="text" class="form-control" placeholder="Last Name" aria-label="Last Name">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="js-form-message js-focus-state col-md-6 mb-2">
+                        <div class="input-group-pill mb-4">
+                            <input type="email" class="form-control" placeholder="Email" aria-label="Email" required
+                            data-msg="Please enter an email."
+                            data-error-class="u-has-error"
+                            data-success-class="u-has-success">
+                          </div>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <div class="input-group-pill mb-4">
+                          <input type="text" class="form-control" placeholder="Phone" aria-label="Phone" required>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <!-- Select -->
+                    <div class="col-sm-6 mb-4 js-form-message js-focus-state">
+                        <p class="font-size-2 ">Are you Homeowner?</p>
       
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="customRadioInline1" name="homeownerradio" class="custom-control-input" required
+                                  data-msg="Please answer the question."
+                                  data-error-class="u-has-error"
+                                  data-success-class="u-has-success">
+                            <label class="custom-control-label" for="customRadioInline1">Yes</label>
+                          </div>
+                          <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="customRadioInline2" name="homeownerradio" class="custom-control-input">
+                            <label class="custom-control-label" for="customRadioInline2">No</label>
+                          </div>
 
-      <script type="text/javascript" src="{% static "assets/landing/vendor/typed.js/lib/typed.min.js" %}"></script>
+                    </div>
+                      <!-- End Select -->
 
-      <script src="{% static "assets/landing/js/hs.core.js" %}"></script>
-      <script src="{% static "assets/landing/js/components/hs.svg-injector.js" %}"></script>
-      <script src="{% static "assets/landing/js/components/hs.slick-carousel.js" %}"></script>
-      <script src="{% static "assets/landing/js/components/hs.step-form.js" %}"></script>
-      <script src="{% static "assets/landing/js/components/hs.validation.js" %}"></script>
-      <script src="{% static "assets/landing/js/components/hs.show-animation.js" %}"></script>
-      <script src="{% static "assets/landing/js/components/hs.range-slider.js" %}"></script>
+                </div>
+
+            </div>
+
+            <!-- End of Content Step One -->
+
+            <div class="d-flex justify-content-end">
+              <button type="button" type="submit" class="btn btn-sm btn-primary transition-3d-hover mr-1" data-next-step="#selectStepTwo">Next</button>
+            </div>
+          </div>
 
 
+          <div id="selectStepTwo" style="display: none;">
+            
+            <!-- Beginning of content step 2 -->
+
+              <div  class="container">
+
+                  <div class="row">
+                    <div class="col-md-6 mb-4 mt-4">
+                      <p class="font-size-2 ">House Information</p>
+                    </div>
+                  </div>
+                
+                  <div class="row">
+
+                      <div class="col-md-6 mb-2">
+                          <div class="js-form-message js-focus-state input-group-pill mb-4">
+                              <input type="email" class="form-control" placeholder="Email" aria-label="Email" required
+                                  data-msg="Please enter an email."
+                                  data-error-class="u-has-error"
+                                  data-success-class="u-has-success">
+
+                          </div>
+                      </div>
+                      <div class="col-md-6 mb-2">
+                          <div class="input-group-pill mb-4">
+                            <input type="text" class="form-control" placeholder="Phone" aria-label="Phone">
+                          </div>
+                      </div>
+
+                  </div>
+
+                  <div class="row">
+
+                      <div class="col-md-6 mb-2">
+                          <div class="input-group-pill mb-4">
+                              <input type="text" class="form-control" placeholder="Address" aria-label="Address">
+                            </div>
+                      </div>
+
+                      <div class="col-md-2 mb-2">
+                          <div class="js-form-message js-focus-state input-group-pill mb-4">
+                            <input type="text" class="form-control" placeholder="Zip Code" aria-label="Zip Code" required
+                                data-msg="Please enter a valid zip code."
+                                data-error-class="u-has-error"
+                                  data-success-class="u-has-success">
+                          </div>
+                      </div>
+
+                      <div class="col-md-4 mb-2">
+                          <div class="js-form-message js-focus-state input-group-pill mb-4">
+                            <input type="text" class="form-control" placeholder="City" aria-label="City" required>
+                          </div>
+                      </div>
+
+                  </div>
+
+              </div>
+
+              <!-- End of content step 2 -->
+
+
+            <div class="d-flex justify-content-end">
+              <a class="btn btn-sm btn-soft-secondary transition-3d-hover mr-1" href="javascript:;" data-previous-step="#selectStepOne">Back</a>
+              <button type="button" class="btn btn-sm btn-primary transition-3d-hover" data-next-step="#selectStepThree">Next</button>
+            </div>
+          </div>
+
+          <div id="selectStepThree" style="display: none;">
+
+            <!-- Begin Content Step 3 -->
+
+                <!-- Begin Saving Estimator-->
+
+                <div class="container space-2 mb-5 calculator">
+
+                    <div class="row text-center m-4">
+                        <h2>Your Solar Roof can generate <span class="text-primary">$167</span> of energy per month over 30 years</h2>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-4">
+                          <div class="btn-group btn-group-toggle mb-8">
+                              <a class="js-animation-link btn btn-sm btn-outline-secondary btn-sm-wide active" href="javascript:;"
+                                data-target="#finance-simulation"
+                                data-link-group="groups"
+                                data-animation-in="slideInUp">
+                              Finance</a>
+                              <a class="js-animation-link btn btn-sm btn-outline-secondary btn-sm-wide" href="javascript:;"
+                                data-target="#cash-simulation"
+                                data-link-group="groups"
+                                data-animation-in="slideInUp">
+                                Cash</a>
+                          </div>
+                          
+                          <div class="row" style="text-align: center">
+
+                              <div id="finance-simulation" data-target-group="groups">
+                                    
+                                  <!-- Begin Content Finance Simulation -->
+                                      <div class="row">
+                                          <div class="col-md-5">
+                                            <ul class="list-inline text-center" style="margin-bottom:0px">
+                                                <li class="list-inline-item">
+                                                  <span class="d-block">
+                                                    <span class="display-4 text-primary font-weight-normal">
+                                                      <span class="align-top font-size-2">$</span>228
+                                                    </span>
+                                                    <span class="d-block text-primary font-size-1">per month</span>
+                                                  </span>
+                                                </li>
+                                            </ul>
+                                          </div>
+      
+                                          <div class="col-md-6 mb-5 my-padding-form">
+                                              <span class="font-size-1">Average value of energy over 30 years
+                                              </span>
+                                          </div>
+                                      </div>
+
+                                      <div class="row">
+                                        <div class="col-md-5 mt-2">
+                                              <ul class="list-inline text-center" style="margin-bottom:0px">
+                                                  <li class="list-inline-item">
+                                                    <span class="d-block">
+                                                      <span class="display-4 font-weight-normal">
+                                                        <span class="align-top font-size-2">$</span>-394
+                                                      </span>
+                                                      <span class="d-block font-size-1">per month</span>
+                                                    </span>
+                                                  </li>
+                                              </ul>
+                                          </div>
+          
+                                          <div class="col-md-6 mb-5 my-padding-form">
+                                              <span class="font-size-1">Loan payment after tax credit and deductions
+                                              </span>
+                                              
+                                          </div>
+                                  
+                                      </div>
+
+                                      <div class="row">
+                                          <div class="col-md-5 mt-2">
+                                              <ul class="list-inline text-center" style="margin-bottom:0px">
+                                                  <li class="list-inline-item">
+                                                    <span class="d-block">
+                                                      <span class="display-4 font-weight-normal">
+                                                        <span class="align-top font-size-2">$</span>166
+                                                      </span>
+                                                      <span class="d-block font-size-1">per month</span>
+                                                    </span>
+                                                  </li>
+                                              </ul>
+                                          </div>
+          
+                                          <div class="col-md-6 mb-5 my-padding-form">
+                                              <span class="font-size-1">Net cost over 30-year loan
+                                              </span>
+                                              
+                                          </div>
+                                  
+                                      </div>
+                              </div>
+
+      
+                              <!-- End Content Finance Simulation -->
+                              
+                                <div id="cash-simulation" data-target-group="groups" style="display: none; opacity: 0;">
+                                  
+                                  <!-- Begin Content Cash Simulation -->
+                                  
+
+                                  <dl class="row">
+                                      <dt class="col-sm-4"> 
+                                        <span style="font-size: 24px;font-weight:500;">
+                                          <span class="align-top"> $</span>60,000
+                                        </span>
+                                      </dt>
+                                      <dd class="col-sm-8"><span class="font-size-1">Value of energy</span></dd>
+                                    
+                                      <dt class="col-sm-4">
+                                        <span style="font-size: 24px;font-weight:500;">
+                                          <span class="align-top">-$</span>94,200
+                                        </span>
+                                      </dt>
+                                      <dd class="col-sm-8"><span class="font-size-1">Cost of installation</span></dd>
+
+                                      <dt class="col-sm-4">
+                                          <span style="font-size: 24px;font-weight:500;">
+                                            <span class="align-top"> $</span>16,200
+                                          </span>
+                                        </dt>
+                                        <dd class="col-sm-8"><span class="font-size-1">Tax Credit</span></dd>
+
+                                      </dl>
+
+                                      <div class="text-center">
+                                          <span class="u-divider u-divider--xs u-divider--text">Total</span>
+                                      </div>
+
+
+                                      <div class="col-md-5 mt-2">
+                                          <ul class="list-inline text-center" style="margin-bottom:0px">
+                                              <li class="list-inline-item">
+                                                <span class="d-block">
+                                                  <span class="display-4 font-weight-normal">-$18,100
+                                                  </span>
+                                                  <span class="d-block font-size-1">Net cost over 30 year</span>
+                                                </span>
+                                              </li>
+                                          </ul>
+                                      </div>
+
+                                      
+                                  <!-- End Content Cash Simulation -->
+      
+                              </div>
+
+                            </div>
+      
+                        </div>
+
+                        <div class="col-md-8">
+
+                            <div class="row m-3">
+
+                                <div class="mb-6">
+                                    <h4>Customize your Solar Roof</h4>
+                                </div>
+                                
+                                <dl class="row mb-6">
+                                    <dt class="col-sm-4">Recommendations</dt>
+                                    <dd class="col-sm-8">
+                                      40% solar coverage to meet your home’s energy needs. Solar and non-solar tiles appear the same from street level.
+                                    </dd>
+                                  
+                                    <dt class="col-sm-4">% Solar Coverage</dt>
+                                    <dd class="col-sm-8">
+                                      <!-- Range Slider -->
+                                        <input class="js-range-slider" type="text"
+                                        data-extra-classes="u-range-slider u-range-slider-indicator u-range-slider-grid"
+                                        data-type="single"
+                                        data-grid="false"
+                                        data-hide-from-to="false"
+                                        data-min="0"
+                                        data-max="70"
+                                        data-step="10"
+                                        value="40"
+                                        data-result-min>
+                                        <!-- End Range Slider -->
+                                    </dd>
+                                  
+                                    <dt class="col-sm-4 text-truncate">Constraints</dt>
+                                    <dd class="col-sm-8">We cannot install solar tiles on some areas of your roof due to building regulations and obstructions like skylights and chimneys.</dd>
+                                  
+                                    
+                                  </dl>
+      
+                                </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- End Saving Estimator-->
+            
+
+            <!-- End of Content Step 3 -->
+
+            <div class="d-flex justify-content-end">
+              <a class="btn btn-sm btn-soft-secondary transition-3d-hover mr-1" href="javascript:;" data-previous-step="#selectStepTwo">Back</a>
+              <button type="button" type="submit" class="btn btn-sm btn-primary transition-3d-hover">Done</button>
+            </div>
+          </div>
+          </div>
+          <!-- End Content Step Form -->
+          </div>
+          </form>
+        </div>
+        <!-- End Calculator Form -->
+      
+        <!-- Houses Section -->
+        <div class="bg-light">
+          <div class="container space-2 space-md-3">
+            <!-- Title -->
+            <div class="w-md-80 w-lg-50 text-center mx-md-auto mb-9">
+              <figure id="icon13" class="svg-preloader ie-height-72 max-width-10 mx-auto mb-3">
+                <img class="js-svg-injector" src="{% static "assets/landing/svg/icons/icon-13.svg" %}" alt="SVG"
+                      data-parent="#icon13">
+              </figure>
+              <h2 class="font-weight-medium">Find your new home for sale on Front's largest selection of property</h2>
+            </div>
+            <!-- End Title -->
     
-      <!-- JS Plugins Init. -->
-      <script>
-        $(window).on('load', function () {
-          // initialization of HSMegaMenu component
-          $('.js-mega-menu').HSMegaMenu({
-            event: 'hover',
-            pageContainer: $('.container'),
-            breakpoint: 767.98,
-            hideTimeOut: 0
-          });
+            <!-- Slick Carousel -->
+            <div class="js-slick-carousel u-slick u-slick-zoom u-slick--gutters-3 mb-7"
+                  data-slides-show="3"
+                  data-pagi-classes="text-center u-slick__pagination mt-7 mb-0"
+                  data-responsive='[{
+                    "breakpoint": 992,
+                    "settings": {
+                      "slidesToShow": 2
+                    }
+                  }, {
+                    "breakpoint": 768,
+                    "settings": {
+                      "slidesToShow": 1
+                    }
+                  }]'>
+              <div class="js-slide card border-0 shadow-sm mb-3">
+                <!-- House Items -->
+                <div class="position-relative">
+                  <img class="card-img-top" src="{% static "assets/landing/img/500x550/img14.jpg" %}" alt="Image Description">
+                  <header class="position-absolute top-0 right-0 left-0 p-5">
+                    <a class="media align-items-center text-white" href="#">
+                      <div class="u-avatar mr-2">
+                        <img class="img-fluid rounded-circle" src="{% static "assets/landing/img/100x100/img1.jpg" %}" alt="Image Description">
+                      </div>
+                      <div class="media-body">
+                        <span>Maria Muszynska</span>
+                      </div>
+                    </a>
+                  </header>
+                  <div class="position-absolute right-0 bottom-0 left-0 p-5">
+                    <span class="h4 text-white">$455,000</span>
+                  </div>
+                </div>
     
-          // initialization of svg injector module
-          $.HSCore.components.HSSVGIngector.init('.js-svg-injector');
-        });
+                <div class="card-body p-5">
+                  <h4 class="h6">
+                    <a href="#">Abbots Way, North Shields</a>
+                  </h4>
+                  <span class="fas fa-map-marker-alt text-danger mr-2"></span>
+                  <a class="text-secondary" href="#">London, England</a>
+                </div>
+                <!-- End House Items -->
+              </div>
     
-        $(document).on('ready', function () {
-          // initialization of header
-          //$.HSCore.components.HSHeader.init($('#header'));
+              <div class="js-slide card border-0 shadow-sm mb-3">
+                <!-- House Items -->
+                <div class="position-relative">
+                  <img class="card-img-top" src="{% static "assets/landing/img/500x550/img15.jpg" %}" alt="Image Description">
+                  <header class="position-absolute top-0 right-0 left-0 p-5">
+                    <a class="media align-items-center text-white" href="#">
+                      <div class="u-avatar mr-2">
+                        <img class="img-fluid rounded-circle" src="{% static "assets/landing/img/100x100/img2.jpg" %}" alt="Image Description">
+                      </div>
+                      <div class="media-body">
+                        <span>Casy Williams</span>
+                      </div>
+                    </a>
+                  </header>
+                  <div class="position-absolute right-0 bottom-0 left-0 p-5">
+                    <span class="h4 text-white">$750,000</span>
+                  </div>
+                </div>
     
-          // initialization of fancybox
-          //$.HSCore.components.HSFancyBox.init('.js-fancybox');
-
-          // initialization of form validation
-          $.HSCore.components.HSValidation.init('.js-validate');
-
-          // initialization of step form
-          $.HSCore.components.HSStepForm.init('.js-step-form')
-          // initialization of forms
-          $.HSCore.components.HSRangeSlider.init('.js-range-slider');
-
-          // initialization of slick carousel
-          $.HSCore.components.HSSlickCarousel.init('.js-slick-carousel');
-
-          // initialization of show animations
-          $.HSCore.components.HSShowAnimation.init('.js-animation-link');
+                <div class="card-body p-5">
+                  <h4 class="h6">
+                    <a href="#">Secluded Intown Treehouse</a>
+                  </h4>
+                  <span class="fas fa-map-marker-alt text-danger mr-2"></span>
+                  <a class="text-secondary" href="#">New York, US</a>
+                </div>
+                <!-- End House Items -->
+              </div>
     
-        });
-      </script>
-    </body>
-    </html>
+              <div class="js-slide card border-0 shadow-sm mb-3">
+                <!-- House Items -->
+                <div class="position-relative">
+                  <img class="card-img-top" src="{% static "assets/landing/img/500x550/img16.jpg" %}" alt="Image Description">
+                  <header class="position-absolute top-0 right-0 left-0 p-5">
+                    <a class="media align-items-center text-white" href="#">
+                      <div class="u-avatar mr-2">
+                        <img class="img-fluid rounded-circle" src="{% static "assets/landing/img/100x100/img3.jpg" %}" alt="Image Description">
+                      </div>
+                      <div class="media-body">
+                        <span>Chris Johnson</span>
+                      </div>
+                    </a>
+                  </header>
+                  <div class="position-absolute right-0 bottom-0 left-0 p-5">
+                    <span class="h4 text-white">$173,000</span>
+                  </div>
+                </div>
+    
+                <div class="card-body p-5">
+                  <h4 class="h6">
+                    <a href="#">Malibu Dream Airstream</a>
+                  </h4>
+                  <span class="fas fa-map-marker-alt text-danger mr-2"></span>
+                  <a class="text-secondary" href="#">Manhattan, US</a>
+                </div>
+                <!-- End House Items -->
+              </div>
+    
+              <div class="js-slide card border-0 shadow-sm mb-3">
+                <!-- House Items -->
+                <div class="position-relative">
+                  <img class="card-img-top" src="{% static "assets/landing/img/500x550/img17.jpg" %}" alt="Image Description">
+                  <header class="position-absolute top-0 right-0 left-0 p-5">
+                    <a class="media align-items-center text-white" href="#">
+                      <div class="u-avatar mr-2">
+                        <img class="img-fluid rounded-circle" src="{% static "assets/landing/img/100x100/img4.jpg" %}" alt="Image Description">
+                      </div>
+                      <div class="media-body">
+                        <span>Elon Fisher</span>
+                      </div>
+                    </a>
+                  </header>
+                  <div class="position-absolute right-0 bottom-0 left-0 p-5">
+                    <span class="h4 text-white">$199,000</span>
+                  </div>
+                </div>
+    
+                <div class="card-body p-5">
+                  <h4 class="h6">
+                    <a href="#">Tintern Crescent</a>
+                  </h4>
+                  <span class="fas fa-map-marker-alt text-danger mr-2"></span>
+                  <a class="text-secondary" href="#">Toronto, Canada</a>
+                </div>
+                <!-- End House Items -->
+              </div>
+    
+              <div class="js-slide card border-0 shadow-sm mb-3">
+                <!-- House Items -->
+                <div class="position-relative">
+                  <img class="card-img-top" src="{% static "assets/landing/img/500x550/img18.jpg" %}" alt="Image Description">
+                  <header class="position-absolute top-0 right-0 left-0 p-5">
+                    <a class="media align-items-center text-white" href="#">
+                      <div class="u-avatar mr-2">
+                        <img class="img-fluid rounded-circle" src="{% static "assets/landing/img/100x100/img1.jpg" %}" alt="Image Description">
+                      </div>
+                      <div class="media-body">
+                        <span>Maria Muszynska</span>
+                      </div>
+                    </a>
+                  </header>
+                  <div class="position-absolute right-0 bottom-0 left-0 p-5">
+                    <span class="h4 text-white">$376,000</span>
+                  </div>
+                </div>
+    
+                <div class="card-body p-5">
+                  <h4 class="h6">
+                    <a href="#">Tiverton Avenue</a>
+                  </h4>
+                  <span class="fas fa-map-marker-alt text-danger mr-2"></span>
+                  <a class="text-secondary" href="#">Beijing, China</a>
+                </div>
+                <!-- End House Items -->
+              </div>
+            </div>
+            <!-- End Slick Carousel -->
+    
+            <div class="text-center">
+              <a class="btn btn-sm btn-soft-primary btn-wide transition-3d-hover" href="#">View All Houses</a>
+            </div>
+          </div>
+        </div>
+        <!-- End Houses Section -->
+    
+        <!-- CTA -->
+        <div class="container text-center space-2 space-md-3">
+          <!-- Title -->
+          <div class="w-md-60 text-center mx-auto mb-6">
+            <h2 class="font-weight-medium">Join over <span class="text-primary font-weight-semi-bold">35,000</span> happy customers selling houses online</h2>
+          </div>
+          <!-- End Title -->
+    
+          <div class="mb-6">
+            <a class="btn btn-primary btn-wide transition-3d-hover" href="#">Get Started Now</a>
+          </div>
+    
+          <!-- Fancybox -->
+          <div class="d-flex justify-content-center">
+            <a class="js-fancybox media align-items-center u-media-player" href="javascript:;"
+                data-src="//vimeo.com/167434033"
+                data-speed="700"
+                data-animate-in="zoomIn"
+                data-animate-out="zoomOut"
+                data-caption="Front - Responsive Website Template">
+              <span class="u-media-player__icon u-media-player__icon--primary mr-3">
+                <span class="fas fa-play u-media-player__icon-inner"></span>
+              </span>
+              <span class="media-body">
+                Watch video
+              </span>
+            </a>
+          </div>
+          <!-- End Fancybox -->
+        </div>
+        <!-- End CTA -->
+     
+      <!-- ========== END MAIN CONTENT ========== -->
+      {% endblock %}
+    
+                
+    
+    

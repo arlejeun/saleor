@@ -4,7 +4,7 @@ from impersonate.views import stop_impersonate
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.home, name='home'),
+    url(r'^$', views.gsol, name='home'),
     url(r'^residential/', views.residential, name='residential'),
     url(r'^commercial/', views.commercial, name='commercial'),
     url(r'^shop/', views.shop, name='shop'),

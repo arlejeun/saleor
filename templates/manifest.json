@@ -1,4 +1,4 @@
-{% load static %}{
+{% load static %} {
   "lang": "en",
   "dir": "ltr",
   "name": "{{ site.name }}",

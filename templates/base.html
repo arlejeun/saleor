@@ -28,7 +28,9 @@
   {% include 'favicon.html' %}
   {% render_bundle 'storefront' 'css' attrs='async' %}
 
-  {% block stylesheet %}{% endblock stylesheet %}
+  {% block stylesheet %}
+
+  {% endblock stylesheet %}
 
   {% block meta_tags %}
     <meta property="og:title" content="{{ site.settings.translated.header_text }}">
@@ -189,6 +191,8 @@
   {% block content %}
   {% endblock content %}
 </div>
+
+
 {% block footer %}
   <footer class="footer">
     <div class="container">
@@ -282,6 +286,7 @@
     </div>
   </footer>
 {% endblock %}
+
 {% block footer_scripts %}
   <script type="text/javascript" src="{% url 'javascript-catalog' %}"></script>
   {% render_bundle 'storefront' 'js' %}

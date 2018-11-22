@@ -12,36 +12,17 @@ from ..product.utils.availability import products_with_availability
 from ..seo.schema.webpage import get_webpage_schema
 
 
-def home(request):
-    products = products_for_homepage(
-        request.site.settings.homepage_collection)[:8]
-    products = list(products_with_availability(
-        products, discounts=request.discounts, taxes=request.taxes,
-        local_currency=request.currency))
-    webpage_schema = get_webpage_schema(request)
+def gsol(request):
     return TemplateResponse(
-        request, 'landing.html')
+        request, 'gsol.html')
 
 def residential(request):
-    products = products_for_homepage(
-        request.site.settings.homepage_collection)[:8]
-    products = list(products_with_availability(
-        products, discounts=request.discounts, taxes=request.taxes,
-        local_currency=request.currency))
-    webpage_schema = get_webpage_schema(request)
     return TemplateResponse(
         request, 'residential.html')
 
 def commercial(request):
-    products = products_for_homepage(
-        request.site.settings.homepage_collection)[:8]
-    products = list(products_with_availability(
-        products, discounts=request.discounts, taxes=request.taxes,
-        local_currency=request.currency))
-    webpage_schema = get_webpage_schema(request)
     return TemplateResponse(
         request, 'commercial.html')
-
 
 def shop(request):
     products = products_for_homepage(
