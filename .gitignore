@@ -19,6 +19,7 @@
 *.log
 *.pot
 *.pyc
+*-old*
 local_settings.py
 __pycache__/
 build/
