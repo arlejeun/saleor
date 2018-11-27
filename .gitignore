@@ -15,7 +15,6 @@
 !.pylintrc
 !.travis*
 !.tx
-*.css
 !/saleor/static/landing/css/theme.min.css
 !/saleor/static/landing/css/theme.css
 !/saleor/static/landing/css/utility.min.css
@@ -28,7 +27,6 @@ local_settings.py
 __pycache__/
 build/
 coverage/
-dist/
 *\.egg*
 # data
 /docs/_build/
