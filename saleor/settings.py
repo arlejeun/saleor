@@ -121,6 +121,7 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 STATIC_URL = os.environ.get('STATIC_URL', '/static/')
 STATICFILES_DIRS = [
     ('assets', os.path.join(PROJECT_ROOT, 'saleor', 'static', 'assets')),
+    ('landing', os.path.join(PROJECT_ROOT, 'saleor', 'static', 'landing')),
     ('favicons', os.path.join(PROJECT_ROOT, 'saleor', 'static', 'favicons')),
     ('images', os.path.join(PROJECT_ROOT, 'saleor', 'static', 'images')),
     ('dashboard/images', os.path.join(

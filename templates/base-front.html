@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+{% load i18n %}
+{% load menu from shop %}
+{% load placeholder %}
+{% load render_bundle from webpack_loader %}
+{% load static %}
+{% load translate_url from urls %}
+
+<html lang="{{ LANGUAGE_CODE }}" class="no-js" data-shipping-options-url="{% url 'cart:shipping-options' %}" data-cart-summary-url="{% url 'cart:summary' %}">
+<head>
+  <title>{% block title %}{{ site.name }}{% endblock %}</title>
+  {% block meta %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <meta name="generator" content="G-Sol">
+  <meta name="theme-color" content="#333333">
+  <meta name="msapplication-TileColor" content="#2b5797">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="{{ site.name }}">
+  <meta name="og:type" content="website">
+  {% get_available_languages as LANGUAGES %}
+  {% for lang_code, language_name in LANGUAGES %}
+    <link rel="alternate" hreflang="{{ lang_code }}" href="{% translate_url url=request.path lang_code=lang_code %}" />
+  {% endfor %}
+{% endblock meta %}
+
+{% include 'favicon.html' %}
+{% render_bundle 'storefront' 'css' attrs='async' %}
+
+<!-- CSS Implementing Plugins -->
+
+<link rel="stylesheet" href="{% static "assets/landing/vendor/font-awesome/css/fontawesome-all.min.css" %}">
+<link rel="stylesheet" href="{% static "assets/landing/vendor/animate.css/animate.min.css" %}">
+<link rel="stylesheet" href="{% static "assets/landing/vendor/hs-megamenu/src/hs.megamenu.css" %}">
+
+<link rel="stylesheet" href="{% static "assets/landing/vendor/fancybox/jquery.fancybox.css" %}">
+<link rel="stylesheet" href="{% static "assets/landing/vendor/slick-carousel/slick/slick.css" %}">
+<link rel="stylesheet" href="{% static "assets/landing/vendor/ion-rangeslider/css/ion.rangeSlider.css" %}">
+
+<link rel="stylesheet" href="{% static "assets/landing/css/theme.min.css" %}">
+<link rel="stylesheet" href="{% static "assets/landing/css/visual_form.css" %}">
+
+
+  {% block stylesheet %}
+      
+  {% endblock stylesheet %}
+
+  {% block meta_tags %}
+    <meta property="og:title" content="{{ site.settings.translated.header_text }}">
+    <meta property="og:description" content="{{ site.settings.translated.description }}">
+    <meta name="description" content="{{ site.settings.translated.description }}">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:image" content="{% static "images/block1.png" %}">
+  {% endblock meta_tags %}
+
+  <link rel="manifest" href="{% url "manifest" %}" />
+
+  <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+
+  {% block header %}
+
+    <header id="header" class="u-header u-header--abs-top-md u-header--bg-transparent u-header--show-hide-md"
+      data-header-fix-moment="500"
+      data-header-fix-effect="slide">
+      
+        <div class="u-header__section">
+        
+        <!-- Topbar -->
+        <div class="container u-header__hide-content pt-2">
+          <div class="d-flex align-items-center">
+            
+            <!-- Links -->
+              <div class="d-none d-sm-inline-block ml-sm-auto">
+                <ul class="list-inline mb-0">
+                 
+                  {% if user.is_authenticated %}
+                    {% if user.is_staff %}
+                        <li class="list-inline-item mr-0">
+                          <a class="nav-menu-issue text-primary u-header__nav-link" href="{% url "dashboard:index" %}" target="_blank" rel="noopener">
+                            {% trans "Dashboard" context "Main navigation item" %}
+                          </a>
+                        </li>
+                      {% endif %}
+                      <li class="list-inline-item mr-0">
+                        <a href="{% url "account:details" %}" class="text-primary nav-menu-issue u-header__nav-link">
+                          {% trans "Your account" context "Main navigation item" %}</a>
+                      </li>
+                    
+                      <li class="list-inline-item mr-0">
+                          <a href="{% url "account:logout" %}" class="text-primary nav-menu-issue u-header__nav-link">
+                          {% trans "Log out" context "Main navigation item" %}</a>
+                      </li>
+                      
+                  {% else %}
+                      <li class="list-inline-item mr-0">
+                        <a rel="nofollow" href="{% url "account:signup" %}" class="text-primary nav-menu-issue u-header__nav-link">
+                          {% trans "Register" context "Main navigation item" %}</a>
+                      </li>
+                      <li class="list-inline-item mr-0">
+                        <a rel="nofollow" href="{% url "account:login" %}" class="text-primary nav-menu-issue u-header__nav-link">
+                          {% trans "Log in" context "Main navigation item" %}
+                        </a>
+                      </li>
+                      
+
+                    {% endif %}
+
+                </ul>
+              </div>
+              <!-- End Links -->
+        </div>
+
+        </div>
+        </div>
+        <!-- End Topbar -->
+
+
+
+        <div id="logoAndNav" class="container">
+            <!-- Nav -->
+            <nav class="js-mega-menu navbar navbar-expand-md u-header__navbar u-header__navbar--no-space">
+            <!-- Logo -->
+            <a class="navbar-brand u-header__navbar-brand u-header__navbar-brand-center" href="{% url 'home' %}" aria-label="Front">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="46px" height="46px" viewBox="0 0 46 46" xml:space="preserve" style="margin-bottom: 0;">
+                <path fill="#3F7DE0" opacity=".65" d="M23,41L23,41c-9.9,0-18-8-18-18v0c0-9.9,8-18,18-18h11.3C38,5,41,8,41,11.7V23C41,32.9,32.9,41,23,41z"/>
+                <path class="fill-info" opacity=".5" d="M28,35.9L28,35.9c-9.9,0-18-8-18-18v0c0-9.9,8-18,18-18l11.3,0C43,0,46,3,46,6.6V18C46,27.9,38,35.9,28,35.9z"/>
+                <path class="fill-primary" opacity=".7" d="M18,46L18,46C8,46,0,38,0,28v0c0-9.9,8-18,18-18h11.3c3.7,0,6.6,3,6.6,6.6V28C35.9,38,27.9,46,18,46z"/>
+                <path class="fill-white" d="M17.4,34V18.3h10.2v2.9h-6.4v3.4"/>
+                </svg>
+                <span class="u-header__navbar-brand-text">G-Sol</span>
+            </a>
+            <!-- End Logo -->
+
+            <!-- Responsive Toggle Button -->
+            <button type="button" class="navbar-toggler btn u-hamburger"
+                    aria-label="Toggle navigation"
+                    aria-expanded="false"
+                    aria-controls="navBar"
+                    data-toggle="collapse"
+                    data-target="#navBar">
+                <span id="hamburgerTrigger" class="u-hamburger__box">
+                <span class="u-hamburger__inner"></span>
+                </span>
+            </button>
+            <!-- End Responsive Toggle Button -->
+
+            <!-- Navigation -->
+            <div id="navBar" class="collapse navbar-collapse u-header__navbar-collapse">
+                <ul class="navbar-nav u-header__navbar-nav">
+                
+                <!-- Residential -->
+                <li class="nav-item u-header__nav-item">
+                    <a id="residentialMenu" class="nav-link u-header__nav-link" href="/en/residential/">Residential</a>
+                </li>
+                <!-- End Residential -->
+
+                <!-- Commercial -->
+                <li class="nav-item u-header__nav-item">
+                    <a id="commercialMenu" class="nav-link u-header__nav-link" href="/en/commercial/">Commercial</a>
+                </li>
+                <!-- End Commercial -->
+
+                <!-- Utilities -->
+                <li class="nav-item u-header__nav-item">
+                    <a id="gotoShoplMenu" class="nav-link u-header__nav-link" href="/en/shop/">Utilities</a>
+                </li>
+                <!-- End Utilities -->
+
+                </ul>
+            </div>
+            <!-- End Navigation -->
+            </nav>
+            <!-- End Nav -->
+        </div>
+
+        </div>
+    </header>
+    {% endblock %}
+
+    <main id="content" role="main" class="container space-2 space-top-md-5 space-top-lg-4">
+
+        {% block topcontent %}{% endblock topcontent %}
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert{% if message.tags %} alert-{{ message.tags }}{% endif %}">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+        {% block breadcrumb %}
+        {% endblock breadcrumb %}
+        {% block content %}
+        {% endblock content %}
+      <!-- ========== END MAIN CONTENT ========== -->
+      </main>
+    
+      {% block footer %}
+      <!-- ========== FOOTER ========== -->
+
+      <footer class="border-top">
+        <div class="container">
+          <div class="border-bottom">
+            <div class="row justify-content-lg-between space-2 space-top-md-3">
+              <div class="col-6 col-sm-4 col-lg-2 mb-7 mb-lg-0">
+                <h4 class="h6">Corporate Information</h4>
+    
+                <!-- List Group -->
+                <ul class="list-group list-group-flush list-group-borderless mb-0">
+                  <li><a class="list-group-item list-group-item-action" href="#">About Us</a></li>
+                  <li><a class="list-group-item list-group-item-action" href="#">Privacy and Security</a></li>
+                  <li><a class="list-group-item list-group-item-action" href="#">Reset Altocloud</a></li>
+                  <li><a class="list-group-item list-group-item-action" href="#">Contact Us</a></li>
+                </ul>
+                <!-- End List Group -->
+              </div>
+    
+              <div class="col-6 col-sm-4 col-lg-2 mb-7 mb-lg-0">
+                <h4 class="h6">Products</h4>
+    
+                <!-- List Group -->
+                <ul class="list-group list-group-flush list-group-borderless mb-0">
+                  <li><a class="list-group-item list-group-item-action" href="#">Solar Panels</a></li>
+                  <li><a class="list-group-item list-group-item-action" href="#">Solar Tiles</a></li>
+                  <li><a class="list-group-item list-group-item-action" href="#">Battery</a></li>
+                  <li><a class="list-group-item list-group-item-action" href="#">Replacement Parts</a></li>
+
+                </ul>
+                <!-- End List Group -->
+              </div>
+    
+              <div class="col-sm-4 col-lg-2 mb-7 mb-lg-0">
+                <h4 class="h6">Services</h4>
+    
+                <!-- List Group -->
+                <ul class="list-group list-group-flush list-group-borderless mb-0">
+                  <li><a class="list-group-item list-group-item-action" href="#">Maintenance</a></li>
+                  <li><a class="list-group-item list-group-item-action" href="#">Commercial Consulting</a></li>
+                  <li><a class="list-group-item list-group-item-action" href="#">Utility Consulting</a></li>
+                  <li><a class="list-group-item list-group-item-action" href="#">Resellers</a></li>
+                </ul>
+                <!-- End List Group -->
+              </div>
+    
+              <div class="col-md-7 col-lg-5">
+                <div class="mb-4">
+                  <h4 class="h6">Get latest news in your box!</h4>
+                  <p class="font-size-1">Get special offers and deals. Never spam.</p>
+                </div>
+    
+                <!-- Subscribe Form -->
+                <form class="js-validate js-form-message">
+                  <label class="sr-only" for="subscribeSrEmail">Your email address</label>
+                  <div class="input-group">
+                    <input type="email" class="form-control" name="email" id="subscribeSrEmail" placeholder="Your email address" aria-label="Your email address" aria-describedby="subscribeButton" required
+                           data-msg="Please enter a valid email address."
+                           data-error-class="u-has-error"
+                           data-success-class="u-has-success">
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" type="button" id="subscribeButton">Subscribe</button>
+                    </div>
+                  </div>
+                </form>
+                <!-- End Subscribe Form -->
+              </div>
+            </div>
+          </div>
+    
+          <div class="text-center py-7">
+            <!-- Copyright -->
+            <p class="small text-muted mb-0">&copy; Front. 2018 Htmlstream.</p>
+            <!-- End Copyright -->
+          </div>
+        </div>
+      </footer>
+      <!-- ========== END FOOTER ========== -->
+      {% endblock %}
+    
+      {% block footer_scripts %}
+
+      <!-- Go to Top -->
+      <a class="js-go-to u-go-to" href="#"
+        data-position='{"bottom": 15, "right": 15 }'
+        data-type="fixed"
+        data-offset-top="400"
+        data-compensation="#header"
+        data-show-effect="slideInUp"
+        data-hide-effect="slideOutDown">
+        <span class="fas fa-arrow-up u-go-to__inner"></span>
+      </a>
+      <!-- End Go to Top -->
+    
+      <!-- JS Global Compulsory -->
+      <script type="text/javascript" src="{% static "assets/landing/vendor/jquery/dist/jquery.min.js" %}"></script>
+      <script type="text/javascript" src="{% static "assets/landing/vendor/jquery-migrate/dist/jquery-migrate.min.js" %}"></script>
+      <script type="text/javascript" src="{% static "assets/landing/vendor/popper.js/dist/umd/popper.min.js" %}"></script>
+      <script type="text/javascript" src="{% static "assets/landing/vendor/bootstrap/bootstrap.min.js" %}"></script>
+
+      <script type="text/javascript" src="{% static "assets/landing/vendor/hs-megamenu/src/hs.megamenu.js" %}"></script>
+      <script type="text/javascript" src="{% static "assets/landing/vendor/svg-injector/dist/svg-injector.min.js" %}"></script>
+      <script type="text/javascript" src="{% static "assets/landing/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js" %}"></script>
+      <script type="text/javascript" src="{% static "assets/landing/vendor/jquery-validation/dist/jquery.validate.min.js" %}"></script>
+      <script type="text/javascript" src="{% static "assets/landing/vendor/fancybox/jquery.fancybox.min.js" %}"></script>
+      <script type="text/javascript" src="{% static "assets/landing/vendor/slick-carousel/slick/slick.min.js" %}"></script>
+      <script type="text/javascript" src="{% static "assets/landing/vendor/ion-rangeslider/js/ion.rangeSlider.min.js" %}"></script>
+      
+
+      <script type="text/javascript" src="{% static "assets/landing/vendor/typed.js/lib/typed.min.js" %}"></script>
+
+      <script src="{% static "assets/landing/js/hs.core.js" %}"></script>
+      <script src="{% static "assets/landing/js/components/hs.svg-injector.js" %}"></script>
+      <script src="{% static "assets/landing/js/components/hs.slick-carousel.js" %}"></script>
+      <script src="{% static "assets/landing/js/components/hs.step-form.js" %}"></script>
+      <script src="{% static "assets/landing/js/components/hs.validation.js" %}"></script>
+      <script src="{% static "assets/landing/js/components/hs.show-animation.js" %}"></script>
+      <script src="{% static "assets/landing/js/components/hs.range-slider.js" %}"></script>
+
+
+    
+      <!-- JS Plugins Init. -->
+      <script>
+        $(window).on('load', function () {
+          // initialization of HSMegaMenu component
+          $('.js-mega-menu').HSMegaMenu({
+            event: 'hover',
+            pageContainer: $('.container'),
+            breakpoint: 767.98,
+            hideTimeOut: 0
+          });
+    
+          // initialization of svg injector module
+          $.HSCore.components.HSSVGIngector.init('.js-svg-injector');
+        });
+    
+        $(document).on('ready', function () {
+          // initialization of header
+          //$.HSCore.components.HSHeader.init($('#header'));
+    
+          // initialization of fancybox
+          //$.HSCore.components.HSFancyBox.init('.js-fancybox');
+
+           //$.HSCore.components.HSValidation.init('.js-validate');
+
+            // initialization of step form
+            //$.HSCore.components.HSStepForm.init('.js-step-form')
+            // initialization of forms
+            //$.HSCore.components.HSRangeSlider.init('.js-range-slider');
+
+            // initialization of slick carousel
+            //$.HSCore.components.HSSlickCarousel.init('.js-slick-carousel');
+
+            // initialization of show animations
+            $.HSCore.components.HSShowAnimation.init('.js-animation-link');
+
+            // initialization of slick carousel
+            $.HSCore.components.HSSlickCarousel.init('.js-slick-carousel');
+    
+        });
+      </script>
+
+      {% endblock footer_scripts %}
+
+    </body>
+    </html>

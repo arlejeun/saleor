@@ -28,16 +28,16 @@
 {% include 'favicon.html' %}
 
 <!-- CSS Implementing Plugins -->
-<link rel="stylesheet" href="{% static "assets/landing/vendor/font-awesome/css/fontawesome-all.min.css" %}">
-<link rel="stylesheet" href="{% static "assets/landing/vendor/animate.css/animate.min.css" %}">
-<link rel="stylesheet" href="{% static "assets/landing/vendor/hs-megamenu/src/hs.megamenu.css" %}">
+<link rel="stylesheet" href="{% static "landing/vendor/font-awesome/css/fontawesome-all.min.css" %}">
+<link rel="stylesheet" href="{% static "landing/vendor/animate.css/animate.min.css" %}">
+<link rel="stylesheet" href="{% static "landing/vendor/hs-megamenu/src/hs.megamenu.css" %}">
 
-<link rel="stylesheet" href="{% static "assets/landing/vendor/fancybox/jquery.fancybox.css" %}">
-<link rel="stylesheet" href="{% static "assets/landing/vendor/slick-carousel/slick/slick.css" %}">
-<link rel="stylesheet" href="{% static "assets/landing/vendor/ion-rangeslider/css/ion.rangeSlider.css" %}">
+<link rel="stylesheet" href="{% static "landing/vendor/fancybox/jquery.fancybox.css" %}">
+<link rel="stylesheet" href="{% static "landing/vendor/slick-carousel/slick/slick.css" %}">
+<link rel="stylesheet" href="{% static "landing/vendor/ion-rangeslider/css/ion.rangeSlider.css" %}">
 
-<link rel="stylesheet" href="{% static "assets/landing/css/theme.min.css" %}">
-<link rel="stylesheet" href="{% static "assets/landing/css/visual_form.css" %}">
+<link rel="stylesheet" href="{% static "landing/css/theme.min.css" %}">
+<link rel="stylesheet" href="{% static "landing/css/visual_form.css" %}">
 
 
   {% block stylesheet %}
@@ -81,28 +81,28 @@
                   {% if user.is_authenticated %}
                     {% if user.is_staff %}
                         <li class="list-inline-item mr-0">
-                          <a class="nav-menu-issue text-primary u-header__nav-link" href="{% url "dashboard:index" %}" target="_blank" rel="noopener">
+                          <a class="nav-menu-issue text-primary u-header__nav-link" href="{% url "dashboard:index" %}" target="_blank" rel="noopener" style="font-size: small; padding: 0 10px;">
                             {% trans "Dashboard" context "Main navigation item" %}
                           </a>
                         </li>
                       {% endif %}
                       <li class="list-inline-item mr-0">
-                        <a href="{% url "account:details" %}" class="text-primary nav-menu-issue u-header__nav-link">
+                        <a href="{% url "account:details" %}" class="text-primary nav-menu-issue u-header__nav-link" style="font-size: small; padding: 0 10px;">
                           {% trans "Your account" context "Main navigation item" %}</a>
                       </li>
                     
                       <li class="list-inline-item mr-0">
-                          <a href="{% url "account:logout" %}" class="text-primary nav-menu-issue u-header__nav-link">
+                          <a href="{% url "account:logout" %}" class="text-primary nav-menu-issue u-header__nav-link" style="font-size: small; padding: 0 10px;">
                           {% trans "Log out" context "Main navigation item" %}</a>
                       </li>
                       
                   {% else %}
                       <li class="list-inline-item mr-0">
-                        <a rel="nofollow" href="{% url "account:signup" %}" class="text-primary nav-menu-issue u-header__nav-link">
+                        <a rel="nofollow" href="{% url "account:signup" %}" class="text-primary nav-menu-issue u-header__nav-link" style="font-size: small; padding: 0 10px;">
                           {% trans "Register" context "Main navigation item" %}</a>
                       </li>
                       <li class="list-inline-item mr-0">
-                        <a rel="nofollow" href="{% url "account:login" %}" class="text-primary nav-menu-issue u-header__nav-link">
+                        <a rel="nofollow" href="{% url "account:login" %}" class="text-primary nav-menu-issue u-header__nav-link" style="font-size: small; padding: 0 10px;">
                           {% trans "Log in" context "Main navigation item" %}
                         </a>
                       </li>
@@ -298,29 +298,29 @@
       <!-- End Go to Top -->
     
       <!-- JS Global Compulsory -->
-      <script type="text/javascript" src="{% static "assets/landing/vendor/jquery/dist/jquery.min.js" %}"></script>
-      <script type="text/javascript" src="{% static "assets/landing/vendor/jquery-migrate/dist/jquery-migrate.min.js" %}"></script>
-      <script type="text/javascript" src="{% static "assets/landing/vendor/popper.js/dist/umd/popper.min.js" %}"></script>
-      <script type="text/javascript" src="{% static "assets/landing/vendor/bootstrap/bootstrap.min.js" %}"></script>
+      <script type="text/javascript" src="{% static "landing/vendor/jquery/dist/jquery.min.js" %}"></script>
+      <script type="text/javascript" src="{% static "landing/vendor/jquery-migrate/dist/jquery-migrate.min.js" %}"></script>
+      <script type="text/javascript" src="{% static "landing/vendor/popper.js/dist/umd/popper.min.js" %}"></script>
+      <script type="text/javascript" src="{% static "landing/vendor/bootstrap/bootstrap.min.js" %}"></script>
 
-      <script type="text/javascript" src="{% static "assets/landing/vendor/hs-megamenu/src/hs.megamenu.js" %}"></script>
-      <script type="text/javascript" src="{% static "assets/landing/vendor/svg-injector/dist/svg-injector.min.js" %}"></script>
-      <script type="text/javascript" src="{% static "assets/landing/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js" %}"></script>
-      <script type="text/javascript" src="{% static "assets/landing/vendor/jquery-validation/dist/jquery.validate.min.js" %}"></script>
-      <script type="text/javascript" src="{% static "assets/landing/vendor/fancybox/jquery.fancybox.min.js" %}"></script>
-      <script type="text/javascript" src="{% static "assets/landing/vendor/slick-carousel/slick/slick.min.js" %}"></script>
-      <script type="text/javascript" src="{% static "assets/landing/vendor/ion-rangeslider/js/ion.rangeSlider.min.js" %}"></script>
+      <script type="text/javascript" src="{% static "landing/vendor/hs-megamenu/src/hs.megamenu.js" %}"></script>
+      <script type="text/javascript" src="{% static "landing/vendor/svg-injector/dist/svg-injector.min.js" %}"></script>
+      <script type="text/javascript" src="{% static "landing/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js" %}"></script>
+      <script type="text/javascript" src="{% static "landing/vendor/jquery-validation/dist/jquery.validate.min.js" %}"></script>
+      <script type="text/javascript" src="{% static "landing/vendor/fancybox/jquery.fancybox.min.js" %}"></script>
+      <script type="text/javascript" src="{% static "landing/vendor/slick-carousel/slick/slick.min.js" %}"></script>
+      <script type="text/javascript" src="{% static "landing/vendor/ion-rangeslider/js/ion.rangeSlider.min.js" %}"></script>
       
 
-      <script type="text/javascript" src="{% static "assets/landing/vendor/typed.js/lib/typed.min.js" %}"></script>
+      <script type="text/javascript" src="{% static "landing/vendor/typed.js/lib/typed.min.js" %}"></script>
 
-      <script src="{% static "assets/landing/js/hs.core.js" %}"></script>
-      <script src="{% static "assets/landing/js/components/hs.svg-injector.js" %}"></script>
-      <script src="{% static "assets/landing/js/components/hs.slick-carousel.js" %}"></script>
-      <script src="{% static "assets/landing/js/components/hs.step-form.js" %}"></script>
-      <script src="{% static "assets/landing/js/components/hs.validation.js" %}"></script>
-      <script src="{% static "assets/landing/js/components/hs.show-animation.js" %}"></script>
-      <script src="{% static "assets/landing/js/components/hs.range-slider.js" %}"></script>
+      <script src="{% static "landing/js/hs.core.js" %}"></script>
+      <script src="{% static "landing/js/components/hs.svg-injector.js" %}"></script>
+      <script src="{% static "landing/js/components/hs.slick-carousel.js" %}"></script>
+      <script src="{% static "landing/js/components/hs.step-form.js" %}"></script>
+      <script src="{% static "landing/js/components/hs.validation.js" %}"></script>
+      <script src="{% static "landing/js/components/hs.show-animation.js" %}"></script>
+      <script src="{% static "landing/js/components/hs.range-slider.js" %}"></script>
 
 
     
