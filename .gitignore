@@ -16,6 +16,10 @@
 !.travis*
 !.tx
 *.css
+!/saleor/static/landing/css/theme.min.css
+!/saleor/static/landing/css/theme.css
+!/saleor/static/landing/css/utility.min.css
+!/saleor/static/landing/css/visual_form.css
 *.log
 *.pot
 *.pyc

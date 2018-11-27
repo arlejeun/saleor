@@ -1,0 +1,47 @@
+#selectStepTwo img {
+    height: 100px;
+    width: 100px;
+    margin: 10px;
+}
+
+#selectStepTwo .active img {
+    border: 10px;
+    border-color: blue;
+}
+
+#selectStepTwo brn-group {
+    overflow-y: scroll;
+    padding: 0px;
+
+}
+
+#selectStepTwo [type='radio'] {
+display: none; 
+}
+
+#selectStepTwo [type='radio'] {
+    display: none; 
+    }
+
+#selectStepTwo .btn-light:not(:disabled):not(.disabled).active, .btn-light:not(:disabled):not(.disabled):active, .show>.btn-light.dropdown-toggle {
+    border-color: blue;
+    padding: 0px 5px;
+}
+
+
+.btn-light:not([href]), .btn-light:not([href]):not([href]):not(:disabled):not(.disabled) {
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+    padding: 0px 5px;
+}
+
+
+#selectStepTwo ul li {
+    margin: 0px 15px;
+}
+
+@media (min-width: 768px) {
+    /* For desktop: */
+    .my-padding-form {padding-top: 7px!important;}
+}
+
